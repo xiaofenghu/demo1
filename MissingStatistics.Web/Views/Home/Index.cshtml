@@ -1,0 +1,67 @@
+﻿@{ 
+
+    var list = ViewBag.CurTainFivePlanList as List<MissingStatistics.Model.CurTainFivePlanList>;
+}
+@section head
+{
+    <meta charset="utf-8" />
+    <title>五码计划列表</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/main.css")" />
+
+}
+<div class="layer">
+    <div class="shadow-bg fn-mb-20">
+        <table class="outline-table table  table-thin-head">
+            <thead>
+                <tr class="bg">
+                    <th>期数</th>
+                    <th>位置</th>
+                    <th>号码</th>
+                    <th>当前</th>
+                    <th>结果</th>
+                    <th>时间</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+
+                    if (list == null || list.Count == 0)
+                    {
+                        <tr><td colspan="4">暂无信息</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var item in list)
+                        {
+                            <tr>
+                                <td>@item.CurTainItem</td>
+                                <td>@item.Location</td>
+                                <td>@item.PlanStr</td>
+                                @if (item.MaxMissCount == 1)
+                                {
+                                    <td>第一期</td>
+                                }
+                                else if (item.MaxMissCount == 2)
+                                {
+                                    <td>第二期</td>
+                                }
+                                @if (item.IsAward == 0)
+                                {
+                                    <td>挂</td>
+                                }
+                                else if (item.IsAward == 1)
+                                {
+                                    <td>中</td>
+                                }
+                                <td>@item.CurTainTime</td>
+                                <td>@item.Remark</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
